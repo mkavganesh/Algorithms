@@ -1,3 +1,7 @@
+/**
+ * Program to determine exponent (x^n) and modular exponent in log(n)
+ */
+
 #include <bits/stdc++.h>
 using namespace std;
 
