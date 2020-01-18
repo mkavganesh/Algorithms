@@ -1,0 +1,28 @@
+procedure SORT(A) is
+  i/p: array A of size n
+  o/p: sorted array
+  
+  begin
+    if |A| = 1 return (A)
+    divide A into two non-empty subarrays A1 and A2
+    M1 = SORT(A1)
+    M2 = SORT(A2)
+    M = MERGE(M1, M2)
+    return (M)
+  end
+  
+procedure MERGE(A1, A2) is
+  i/p: two sorted arrays A1 and A2
+  o/p: sorted merged array A1 + A2
+  
+  begin
+    if |A1| = 0 return (A2)
+    if |A2| = 0 return (A1)
+    
+    let A1 = {x1, x2, ..., xn}
+    let A2 = {y1, y2, ..., ym}
+    
+    if (x1 >= y1)
+      return {x1} + MERGE(A1 - {x1}, A2)
+    else
+      return {y1} + MERGe(A1, A2 - {y1})
