@@ -3,9 +3,10 @@ using namespace std;
 
 #define MOD 1000000007;
 
+long long int a, b, c, d;
+
 void fast_fib(long long int n,long long int ans[]) {
     /* function to return N-th fibonacci number in O(logN) running time */
-    long long int a, b, c, d;
     if(n == 0) {
         ans[0] = 0;
         ans[1] = 1;
