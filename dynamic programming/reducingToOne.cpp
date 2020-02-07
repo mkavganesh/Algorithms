@@ -1,6 +1,7 @@
 /**
  * Problem Statement can be found on
  * https://cse.iitkgp.ac.in/~abhij/course/lab/Algo1/Spring20/A4.pdf
+ * Complexity : Θ(kn)
  */
 
 #include <bits/stdc++.h>
