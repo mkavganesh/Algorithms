@@ -6,6 +6,8 @@
 #include <iostream>
 using namespace std;
 
+int mini (int a, int b, int c) return min(min(a,b),c);
+
 int main() {
     int n;
     cout << "n = ";
