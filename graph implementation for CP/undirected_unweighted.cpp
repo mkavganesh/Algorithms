@@ -4,23 +4,15 @@ typedef long long int ll;
 
 #define reset memset(visited, false, sizeof(visited))
 
-/**
- * Global variables defined in this module:
- * N <int>: number of vertices in the graph
- * E <int>: number of edges in the graph
- * visited[] <bool>: array used for dfs and related algorithms, needs to be reset before every use
- * cycle_detected <bool>: stores whether given graph contains cycle, first we need to run iscyclic() routine to find the same
- * 
- * Functions derfined in this module:
- * dfs() <void>: Basic DFS traversal of the graph
- * iscyclic() <void>: Routine to check whether the graph contains cycle or not
- *
- */
-
-const int N = 64;
-vector<int> g[N];
-bool visited[N+1];
+const int MAXN = 64;
+vector<int> g[MAXN + 1];
+bool visited[MAXN+1];
 bool cycle_detected = false;
+int componentCount = 0;
+int comp[MAXN+1];
+int N, E;
+
+/* DFS related algorithm implemented here */
 
 void dfs(int i) {
   /* Basic DFS algorithm implemented here */
@@ -57,6 +49,7 @@ void isConnected (int i, int k, bool& flag) {
    * 
    * Due to this recursive definition, DFS can be used to implement the routine
    */
+
   visited[i] = true;
   for (auto j : g[i]) {
     if (j == k) {
@@ -67,12 +60,49 @@ void isConnected (int i, int k, bool& flag) {
   }
 }
 
+void _dfs_comp(int i) {
+  /* Helper routine for dicover_components() */
+  visited[i] = true;
+  comp[i] = componentCount;
+  for (auto j : g[i]) {
+    if(!visited[j]) _dfs_comp(j);
+  }
+}
+
+int discover_components() {
+  /* Routine to discover the disconnected components and fill comp[]<int> accordingly */
+  memset(comp, 0, sizeof(comp));
+  for (int i = 1; i <= N; i++) {
+    if (visited[i]) continue;
+    ++componentCount;
+    _dfs_comp(i);
+  }
+  return componentCount;
+}
+
+/* BFS related algorithm are implemented here */
+
+void bfs(int i) {
+  /* Simple BFS algorithm */
+  visited[i] = true;
+  cout << i << " -> ";
+  queue<int> Q;
+  Q.push(i);
+  while (!Q.empty()) {
+    auto j = Q.front();
+    Q.pop();
+    if (visited[j] == false) {visited[j] = true; cout << j << " -> ";}
+    for (auto k : g[j]) {
+      if (!visited[k]) Q.push(k);
+    }
+  }
+}
+
 signed main() {
 #ifdef HP
   freopen("input.txt", "r", stdin);
 #endif
-  int E; // no. of edges
-  cin >> E;
+  cin >> N >> E;
   for (int i = 0; i < E; i++) {
     int a, b;
     cin >> a >> b;
@@ -80,5 +110,7 @@ signed main() {
     g[b].push_back(a);
   }
   reset;
+  bfs(1);
+  cout << "\n";
   return 0;
 }
