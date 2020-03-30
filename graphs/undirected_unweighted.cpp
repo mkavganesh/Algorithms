@@ -84,17 +84,17 @@ int discover_components() {
 
 void bfs(int i) {
   /* Simple BFS algorithm */
-  visited[i] = true;
+  visited[i] = false;
   cout << i << " -> ";
   queue<int> Q;
   Q.push(i);
   while (!Q.empty()) {
     auto j = Q.front();
     Q.pop();
-    if (visited[j] == false) {visited[j] = true; cout << j << " -> ";}
+    if (visited[j] == false) {visited[j] = true; cout << j << " -> ";
     for (auto k : g[j]) {
       if (!visited[k]) Q.push(k);
-    }
+    }}
   }
 }
 
